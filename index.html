@@ -1,11 +1,36 @@
 <!DOCTYPE html>  <!--Initialize HTML-->
 <html lang="en"> 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong</title>
+    <!-- css styles -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ping Pong</h1>
-    <p>Welcome to Ping Pong! Lets get tropical!</p>
+    <div>
+        <!-- our own header information -->
+        <h1>Ping Pong</h1>
+        <p>Welcome to Ping Pong! Lets get tropical!</p>
+    </div>
+    <div>  
+        <!-- the ping pong game -->
+        <!-- canvas of the ping pong game -->
+        <canvas id="canvas" width="600" height="400"></canvas>
+        <!-- our script of the ping pong game -->
+        <script type="text/javascript" src="js/script.js"></script>
+        </div>
 </body>
-
 </html>
