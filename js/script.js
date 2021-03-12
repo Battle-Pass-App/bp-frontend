@@ -16,8 +16,8 @@ let upArrowPressed = false;
 let downArrowPressed = false;
 
 // modify
-isModified = true
-modification = 'random'
+isModified = false
+modification = 'grow shrink'
 
 
 // objects
@@ -145,6 +145,14 @@ function modify(flag) {
                 ball.velocityY += Math.random() * 2 - 1
                 ball.velocityX += Math.random() * 2 - 1
                 //ball.speed += Math.random() * 2 - 1
+            }
+        case 'grow shrink':
+            if (ball.radius <= 2) {
+                ball.radius = 2 + Math.random() + 0.1
+            } else if (ball.radius >= 20) {
+                ball.radius = 20 - Math.random() - 0.1
+            } else {
+                ball.radius += Math.random() * 2 - 1
             }
     }
 }
