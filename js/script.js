@@ -15,6 +15,10 @@ const paddleHeight = 100;
 let upArrowPressed = false;
 let downArrowPressed = false;
 
+// modify
+isModified = false
+modification = 'random'
+
 
 // objects
 // net
@@ -131,6 +135,20 @@ function keyUpHandler(event) {
     }
 }
 
+function modify(flag) {
+    switch (flag) {
+        case 'bouncy gravity':
+            ball.velocityY += 0.5
+            break
+        case 'random':
+            if (Math.random() <= 0.30) {
+                ball.velocityY += Math.random() * 2 - 1
+                ball.velocityX += Math.random() * 2 - 1
+                //ball.speed += Math.random() * 2 - 1
+            }
+    }
+}
+
 // update the game state
 function update() {
     // move paddle
@@ -165,6 +183,10 @@ function update() {
     // move the ball
     ball.x += ball.velocityX
     ball.y += ball.velocityY
+
+    if (isModified) {
+        modify(modification)
+    }
 
     // ai paddle movement
     ai.y += ((ball.y - (ai.y + ai.height / 2))) * 0.09
@@ -221,7 +243,7 @@ function collisionDetect(player, ball) {
 // game loop (ie update the game state and then render the changes on the screen)
 function gameLoop() {
     update()
-    render() 
+    render()
 }
 
 // call the gameLoop function 60 times per second
