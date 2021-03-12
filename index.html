@@ -13,7 +13,7 @@
         body {
             width: 100vw;
             height: 100vh;
-            display: flex;
+            display: grid;
             justify-content: center;
             align-items: center;
         }
@@ -23,13 +23,19 @@
         p {
             color: blue
         }
+        #header {
+            grid-row: 1
+        }
+        #game {
+            grid-row: 2
+        }
     </style>
 </head>
 <body>
     <div id="header">
         <!-- our own header information -->
         <h1 id="title">Ping Pong</h1>
-        <p>Welcome to Ping Pong! Lets get tropical!</p>
+        <p>Welcome to Ping Pong!</p>
     </div>
     <div id="game">  
         <!-- the ping pong game -->
