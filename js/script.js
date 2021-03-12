@@ -103,4 +103,126 @@ function render() {
     drawBall(ball.x, ball.y, ball.radius, ball.color)
 }
 
-render()
+// listen for button press (dont have button defined yet)
+window.addEventListener('keydown', keyDownHandler)
+window.addEventListener('keyup', keyUpHandler)
+
+function keyDownHandler(event) {
+    switch (event.keyCode) {
+        // up arrow key is 38
+        case 38:
+            upArrowPressed = true
+            break
+        case 40:
+            downArrowPressed = true
+            break
+    }
+}
+
+function keyUpHandler(event) {
+    switch (event.keyCode) {
+        // up arrow key is 38
+        case 38:
+            upArrowPressed = false
+            break
+        case 40:
+            downArrowPressed = false
+            break
+    }
+}
+
+// update the game state
+function update() {
+    // move paddle
+    if (upArrowPressed && user.y > 0) {
+        user.y -= 8
+    } else if (downArrowPressed && (user.y < canvas.height - user.height)) {
+        user.y += 8
+    }
+
+    // check if ball hits top or bottom
+    if (ball.y + ball.radius >= canvas.height || ball.y - ball.radius <= 0) {
+        // play a wall hit sound
+        ball.velocityY = -ball.velocityY
+    }
+
+    // check if ball hits right wall
+    if (ball.x + ball.radius >= canvas.width) {
+        // play scoreSound
+        // then user scored 1 point
+        user.score += 1;
+        reset()
+    }
+
+    // if ball hit on left wall
+    if (ball.x - ball.radius <= 0) {
+        // play scoreSound
+        // then ai scored 1 point
+        ai.score += 1
+        reset()
+    }
+
+    // move the ball
+    ball.x += ball.velocityX
+    ball.y += ball.velocityY
+
+    // ai paddle movement
+    ai.y += ((ball.y - (ai.y + ai.height / 2))) * 0.09
+
+    // collision detechtion on paddles
+    // select player that has the ball on their side
+    let player = (ball.x < canvas.width / 2) ? user: ai
+    if (collisionDetect(player, ball)) {
+        // play hit sound
+        let angle = 0
+        // if ball hit the top of the paddle
+        if (ball.y < (player.y + player.height / 2)) {
+            // then -1 * Math.PI / 4 = -45 degrees
+            angle = -1 * Math.PI/4
+        } else if (ball.y > (player.y + player.height /2)) {
+            // if hit the bottom of paddle
+            angle = 1 * Math.PI/4
+        }
+        // hit side
+        ball.velocityX = (player == user ? 1 : -1) * ball.speed * Math.cos(angle)
+        ball.velocityY = ball.speed * Math.sin(angle)
+
+        // increase ball speed after hit
+        ball.speed += 0.2
+    } 
+}
+
+function reset() {
+    // reset balls value to older values
+    // TODO: move objects to classes so can just instantiate a new ball instead of modifying orig
+    ball.x = canvas.width / 2
+    ball.y = canvas.height /2
+    ball.speed = 7
+    // reverse velocity to other side
+    // TODO: change velocity to move towards losers side
+    ball.velocityX = -ball.velocityX
+    ball.velocityY = -ball.velocityY
+}
+
+function collisionDetect(player, ball) {
+    // returns true or false
+    player.top = player.y
+    player.right = player.x + player.width
+    player.bottom = player.y + player.height
+    player.left = player.x
+
+    ball.top = ball.y - ball.radius
+    ball.right = ball.x + ball.radius
+    ball.bottom = ball.y + ball.radius
+    ball.left = ball.x - ball.radius
+    return ball.left < player.right && ball.top < player.bottom && ball.right > player.left && ball.bottom > player.top
+}
+
+// game loop (ie update the game state and then render the changes on the screen)
+function gameLoop() {
+    update()
+    render() 
+}
+
+// call the gameLoop function 60 times per second
+setInterval(gameLoop, 1000 / 60)
