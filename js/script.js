@@ -14,6 +14,7 @@ const paddleHeight = 100;
 
 let upArrowPressed = false;
 let downArrowPressed = false;
+let enterButtonPressed = false;
 
 // modify
 isModified = false
@@ -119,6 +120,9 @@ function keyDownHandler(event) {
             break
         case 40:
             downArrowPressed = true
+            break
+        case 13:
+            enterButtonPressed = true
             break
     }
 }
@@ -250,8 +254,13 @@ function collisionDetect(player, ball) {
 
 // game loop (ie update the game state and then render the changes on the screen)
 function gameLoop() {
-    update()
-    render()
+    if (enterButtonPressed) {
+        update()
+        render()
+    }
+    else {
+        render()
+    }
 }
 
 // call the gameLoop function 60 times per second
