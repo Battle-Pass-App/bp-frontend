@@ -16,7 +16,7 @@ let upArrowPressed = false;
 let downArrowPressed = false;
 
 // modify
-isModified = false
+isModified = true
 modification = 'random'
 
 
@@ -221,9 +221,8 @@ function reset() {
     ball.y = canvas.height /2
     ball.speed = 7
     // reverse velocity to other side
-    // TODO: change velocity to move towards losers side
-    ball.velocityX = -ball.velocityX
-    ball.velocityY = -ball.velocityY
+    ball.velocityX = -5 * Math.sign(ball.velocityX)
+    ball.velocityY = -5 * Math.sign(ball.velocityY)
 }
 
 function collisionDetect(player, ball) {
