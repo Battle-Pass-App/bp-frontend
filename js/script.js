@@ -147,6 +147,7 @@ function keyUpHandler(event) {
         case 38:
             upArrowPressed = false
             break
+        // down arrow key is 40    
         case 40:
             downArrowPressed = false
             break
@@ -211,7 +212,7 @@ function update() {
         ai.score += 1
         reset()
     }
-
+   
     // move the ball
     ball.x += ball.velocityX
     ball.y += ball.velocityY
@@ -276,6 +277,15 @@ function gameLoop() {
     if (enterButtonPressed) {
         update()
         render()
+    }
+    // if score is 7 game over
+    if (ai.score == 7) {
+        alert("GAME OVER!\nYOU LOST!\n THANKS FOR PLAYINGs\n")
+        document.location.reload()
+    }
+    if (user.score == 7) {
+        alert("GAME OVER!\nYOU WON!\n THANKS FOR PLAYING\n")
+        document.location.reload()
     }
     else {
         render()
