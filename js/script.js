@@ -280,7 +280,7 @@ function gameLoop() {
     }
     // if score is 7 game over
     if (ai.score == 7) {
-        alert("GAME OVER!\nYOU LOST!\n THANKS FOR PLAYINGs\n")
+        alert("GAME OVER!\nYOU LOST!\n THANKS FOR PLAYING\n")
         document.location.reload()
     }
     if (user.score == 7) {
