@@ -13,24 +13,52 @@
         body {
             width: 100vw;
             height: 100vh;
-            display: flex;
+            display: grid;
             justify-content: center;
             align-items: center;
+        }
+        #title {
+            color: blue;
+            background-color: navy
+        }
+        p {
+            color: black;
+            background-color: navy;
+        }
+        #header {
+            grid-row: 1
+        }
+        #game {
+            grid-row: 2
         }
     </style>
 </head>
 <body>
-    <div>
+    <div id="header">
         <!-- our own header information -->
-        <h1>Ping Pong</h1>
-        <p>Welcome to Ping Pong! Lets get tropical!</p>
+        <h1 style="font-family: Arial; font-size: 10vw" id="title">
+            Ping Pong</h1>
+        <p style="font-family: Arial; font-size: 4vw">
+            Welcome to Ping Pong! <br><br>Rules: First player to 7!<br>Press enter to start!</p>
     </div>
-    <div>  
+    <div id="game">  
         <!-- the ping pong game -->
         <!-- canvas of the ping pong game -->
         <canvas id="canvas" width="600" height="400"></canvas>
         <!-- our script of the ping pong game -->
         <script type="text/javascript" src="js/script.js"></script>
         </div>
+    <div id="modification menu">
+        <!--the modification menu-->
+        <h2 style="font-family: Arial; font-size: 3vw" id="title">
+            Modification Menu: <br>
+        </h2>
+        <p style="font-family: Arial; font-size: 3vw">
+            Press number on keyboard for awesome effects! <br>
+            1-Bouncy Gravity <br>
+            2-Random <br>
+            3-Grow/Shrink <br>
+        </p>
+    </div>    
 </body>
 </html>

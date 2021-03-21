@@ -14,11 +14,11 @@ const paddleHeight = 100;
 
 let upArrowPressed = false;
 let downArrowPressed = false;
+let enterButtonPressed = false;
 
 // modify
-isModified = false
-modification = 'grow shrink'
-
+let allowModifications = true
+let modification = false
 
 // objects
 // net
@@ -120,6 +120,24 @@ function keyDownHandler(event) {
         case 40:
             downArrowPressed = true
             break
+        case 13:
+            enterButtonPressed = true
+            break
+        case 49:
+            modification = 'bouncy gravity'
+            break
+        case 50:
+            modification = 'random'
+            break
+        case 51:
+            modification = 'grow shrink'
+            break
+        case 48:
+            modification = false
+            modReset()
+            break
+
+            
     }
 }
 
@@ -129,6 +147,7 @@ function keyUpHandler(event) {
         case 38:
             upArrowPressed = false
             break
+        // down arrow key is 40    
         case 40:
             downArrowPressed = false
             break
@@ -145,7 +164,7 @@ function modify(flag) {
                 ball.velocityY += Math.random() * 2 - 1
                 ball.velocityX += Math.random() * 2 - 1
                 //ball.speed += Math.random() * 2 - 1
-            }
+            } break
         case 'grow shrink':
             if (ball.radius <= 2) {
                 ball.radius = 2 + Math.random() + 0.1
@@ -153,8 +172,14 @@ function modify(flag) {
                 ball.radius = 20 - Math.random() - 0.1
             } else {
                 ball.radius += Math.random() * 2 - 1
-            }
+            } break
     }
+}
+
+// reset ball
+function modReset() {
+    ball.radius = 7
+    ball.speed = 7
 }
 
 // update the game state
@@ -187,12 +212,12 @@ function update() {
         ai.score += 1
         reset()
     }
-
+   
     // move the ball
     ball.x += ball.velocityX
     ball.y += ball.velocityY
 
-    if (isModified) {
+    if (allowModifications && modification) {
         modify(modification)
     }
 
@@ -249,8 +274,22 @@ function collisionDetect(player, ball) {
 
 // game loop (ie update the game state and then render the changes on the screen)
 function gameLoop() {
-    update()
-    render()
+    if (enterButtonPressed) {
+        update()
+        render()
+    }
+    // if score is 7 game over
+    if (ai.score == 7) {
+        alert("GAME OVER!\nYOU LOST!\n THANKS FOR PLAYING\n")
+        document.location.reload()
+    }
+    if (user.score == 7) {
+        alert("GAME OVER!\nYOU WON!\n THANKS FOR PLAYING\n")
+        document.location.reload()
+    }
+    else {
+        render()
+    }
 }
 
 // call the gameLoop function 60 times per second
